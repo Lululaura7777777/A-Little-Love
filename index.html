@@ -1,97 +1,351 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>For You ❤️</title>
-
-<style>
-
-body{
-    margin:0;
-    overflow:hidden;
-    background:linear-gradient(to bottom,#ffe6f0,#ffffff);
-    font-family:Arial;
-}
-
-.center{
-    position:absolute;
-    top:40%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    text-align:center;
-    color:#ff2e63;
-}
-
-.center h1{
-    font-size:60px;
-}
-
-.center p{
-    font-size:24px;
-}
-
-.heart{
-    position:fixed;
-    top:-10px;
-    font-size:24px;
-    animation:fall linear infinite;
-}
-
-@keyframes fall{
-
-    0%{
-        transform:translateY(-10vh);
-        opacity:1;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For TaoJR ❤️</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    100%{
-        transform:translateY(110vh);
-        opacity:0.2;
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: "Georgia", "Times New Roman", serif;
+      background: radial-gradient(circle at top, #1a1a40 0%, #0b1026 45%, #050814 100%);
     }
-}
 
-</style>
+    body {
+      position: relative;
+      color: white;
+      user-select: none;
+    }
 
+    .stars,
+    .stars2,
+    .stars3 {
+      position: absolute;
+      inset: 0;
+      background-repeat: repeat;
+      animation: drift linear infinite;
+      pointer-events: none;
+    }
+
+    .stars {
+      background-image:
+        radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.9), transparent),
+        radial-gradient(1.5px 1.5px at 100px 80px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(2px 2px at 180px 120px, rgba(255,255,255,0.85), transparent),
+        radial-gradient(1.5px 1.5px at 260px 40px, rgba(255,255,255,0.7), transparent),
+        radial-gradient(2px 2px at 340px 140px, rgba(255,255,255,0.9), transparent);
+      background-size: 400px 200px;
+      opacity: 0.55;
+      animation-duration: 120s;
+    }
+
+    .stars2 {
+      background-image:
+        radial-gradient(1px 1px at 30px 60px, rgba(173,216,255,0.85), transparent),
+        radial-gradient(1.5px 1.5px at 140px 20px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 220px 100px, rgba(255,182,193,0.75), transparent),
+        radial-gradient(1.5px 1.5px at 320px 70px, rgba(255,255,255,0.85), transparent);
+      background-size: 360px 180px;
+      opacity: 0.45;
+      animation-duration: 180s;
+    }
+
+    .stars3 {
+      background-image:
+        radial-gradient(1px 1px at 60px 40px, rgba(255,255,255,0.55), transparent),
+        radial-gradient(1px 1px at 180px 70px, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 280px 130px, rgba(255,192,203,0.45), transparent);
+      background-size: 320px 160px;
+      opacity: 0.35;
+      animation-duration: 240s;
+    }
+
+    @keyframes drift {
+      from { transform: translateY(0); }
+      to   { transform: translateY(-200px); }
+    }
+
+    .glow {
+      position: absolute;
+      width: 42vw;
+      height: 42vw;
+      max-width: 520px;
+      max-height: 520px;
+      min-width: 260px;
+      min-height: 260px;
+      left: 50%;
+      top: 44%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(255,105,180,0.22) 0%, rgba(255,105,180,0.08) 35%, rgba(255,105,180,0) 70%);
+      filter: blur(18px);
+      pointer-events: none;
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
+      50%      { transform: translate(-50%, -50%) scale(1.08); opacity: 1; }
+    }
+
+    .center {
+      position: absolute;
+      left: 50%;
+      top: 43%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 5;
+      width: min(90vw, 900px);
+      padding: 24px;
+    }
+
+    .center h1 {
+      font-size: clamp(2.3rem, 6vw, 5.3rem);
+      color: #ffd6e8;
+      text-shadow:
+        0 0 10px rgba(255,182,193,0.65),
+        0 0 24px rgba(255,105,180,0.4),
+        0 0 42px rgba(255,105,180,0.22);
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+
+    .center .subtitle {
+      font-size: clamp(1rem, 2.2vw, 1.45rem);
+      color: rgba(255, 245, 250, 0.95);
+      line-height: 1.8;
+      text-shadow: 0 0 14px rgba(255,255,255,0.18);
+      margin-bottom: 10px;
+    }
+
+    .center .signature {
+      margin-top: 20px;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: #ffbfd8;
+      opacity: 0.95;
+    }
+
+    .hint {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      font-size: 0.95rem;
+      color: rgba(255, 230, 240, 0.82);
+      letter-spacing: 0.4px;
+      text-align: center;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 18px rgba(255,255,255,0.05);
+    }
+
+    .falling-heart {
+      position: absolute;
+      top: -10vh;
+      pointer-events: none;
+      will-change: transform, opacity;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-fill-mode: forwards;
+      text-shadow: 0 0 12px rgba(255, 105, 180, 0.45);
+      z-index: 3;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) translateX(0) rotate(0deg);
+        opacity: 0;
+      }
+      8% {
+        opacity: 0.95;
+      }
+      100% {
+        transform: translateY(115vh) translateX(var(--driftX)) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .burst-heart {
+      position: absolute;
+      pointer-events: none;
+      z-index: 8;
+      will-change: transform, opacity;
+      text-shadow: 0 0 10px rgba(255,105,180,0.45);
+      animation: burst 1.25s ease-out forwards;
+    }
+
+    @keyframes burst {
+      0% {
+        transform: translate(0, 0) scale(0.7);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--x), var(--y)) scale(1.4);
+        opacity: 0;
+      }
+    }
+
+    .floating-spark {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 0 12px rgba(255,255,255,0.8);
+      pointer-events: none;
+      z-index: 7;
+      animation: sparkle 0.9s ease-out forwards;
+    }
+
+    @keyframes sparkle {
+      0% {
+        transform: scale(0.8);
+        opacity: 0.95;
+      }
+      100% {
+        transform: translateY(-20px) scale(0);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hint {
+        font-size: 0.82rem;
+        bottom: 20px;
+        width: calc(100vw - 36px);
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="stars"></div>
+  <div class="stars2"></div>
+  <div class="stars3"></div>
+  <div class="glow"></div>
 
-<div class="center">
-<h1>❤️ I Love You ❤️</h1>
-<p>You make my world brighter.</p>
-<p>— Yulu</p>
-</div>
+  <div class="center">
+    <h1>❤️ For TaoJR ❤️</h1>
+    <div class="subtitle">
+      Every day feels softer with you in it.<br>
+      Thank you for being my happiest surprise.
+    </div>
+    <div class="subtitle">
+      You make my world softer, warmer, and more beautiful.
+    </div>
+    <div class="signature">— Yulu</div>
+  </div>
 
-<script>
+  <div class="hint">tap / click anywhere ✨</div>
 
-const hearts = ["❤️","💖","💕","💘","💗"];
+  <script>
+    const fallingSymbols = ["❤️", "💖", "💕", "💗", "💘", "💓"];
+    const burstSymbols = ["❤️", "💖", "💕", "✨", "💗"];
+    const body = document.body;
 
-function createHeart(){
+    function createFallingHeart() {
+      const heart = document.createElement("div");
+      heart.className = "falling-heart";
+      heart.textContent = fallingSymbols[Math.floor(Math.random() * fallingSymbols.length)];
 
-    const heart = document.createElement("div");
+      const left = Math.random() * 100;
+      const size = 16 + Math.random() * 26;
+      const duration = 5 + Math.random() * 6;
+      const delay = Math.random() * 2;
+      const drift = (Math.random() * 80 - 40) + "px";
 
-    heart.className = "heart";
+      heart.style.left = left + "vw";
+      heart.style.fontSize = size + "px";
+      heart.style.animationDuration = duration + "s";
+      heart.style.animationDelay = delay + "s";
+      heart.style.setProperty("--driftX", drift);
 
-    heart.innerHTML = hearts[Math.floor(Math.random()*hearts.length)];
+      body.appendChild(heart);
 
-    heart.style.left = Math.random()*100 + "vw";
+      setTimeout(() => {
+        heart.remove();
+      }, (duration + delay) * 1000 + 300);
+    }
 
-    heart.style.fontSize = (20 + Math.random()*30) + "px";
+    for (let i = 0; i < 28; i++) {
+      setTimeout(createFallingHeart, i * 220);
+    }
+    setInterval(createFallingHeart, 260);
 
-    heart.style.animationDuration = (3 + Math.random()*5) + "s";
+    function createBurst(x, y) {
+      const total = 14;
 
-    document.body.appendChild(heart);
+      for (let i = 0; i < total; i++) {
+        const item = document.createElement("div");
+        item.className = "burst-heart";
+        item.textContent = burstSymbols[Math.floor(Math.random() * burstSymbols.length)];
 
-    setTimeout(()=>{
+        const angle = (Math.PI * 2 * i) / total;
+        const distance = 40 + Math.random() * 85;
+        const dx = Math.cos(angle) * distance + (Math.random() * 16 - 8);
+        const dy = Math.sin(angle) * distance + (Math.random() * 16 - 8);
+        const size = 16 + Math.random() * 16;
 
-        heart.remove()
+        item.style.left = x + "px";
+        item.style.top = y + "px";
+        item.style.fontSize = size + "px";
+        item.style.setProperty("--x", dx + "px");
+        item.style.setProperty("--y", dy + "px");
 
-    },8000)
-}
+        body.appendChild(item);
 
-setInterval(createHeart,200)
+        setTimeout(() => item.remove(), 1300);
+      }
+    }
 
-</script>
+    function createSpark(x, y) {
+      const spark = document.createElement("div");
+      spark.className = "floating-spark";
+      spark.style.left = x + "px";
+      spark.style.top = y + "px";
+      body.appendChild(spark);
+      setTimeout(() => spark.remove(), 900);
+    }
 
+    document.addEventListener("click", (e) => {
+      createBurst(e.clientX, e.clientY);
+      for (let i = 0; i < 5; i++) {
+        createSpark(
+          e.clientX + (Math.random() * 30 - 15),
+          e.clientY + (Math.random() * 30 - 15)
+        );
+      }
+    });
+
+    document.addEventListener("touchstart", (e) => {
+      const touch = e.touches[0];
+      createBurst(touch.clientX, touch.clientY);
+      for (let i = 0; i < 5; i++) {
+        createSpark(
+          touch.clientX + (Math.random() * 30 - 15),
+          touch.clientY + (Math.random() * 30 - 15)
+        );
+      }
+    }, { passive: true });
+
+    let lastSparkTime = 0;
+    document.addEventListener("mousemove", (e) => {
+      const now = Date.now();
+      if (now - lastSparkTime > 60) {
+        createSpark(e.clientX, e.clientY);
+        lastSparkTime = now;
+      }
+    });
+  </script>
 </body>
 </html>
