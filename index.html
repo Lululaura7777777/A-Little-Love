@@ -26,9 +26,7 @@
       user-select: none;
     }
 
-    .stars,
-    .stars2,
-    .stars3 {
+    .stars, .stars2, .stars3 {
       position: absolute;
       inset: 0;
       background-repeat: repeat;
@@ -105,6 +103,14 @@
       z-index: 5;
       width: min(90vw, 900px);
       padding: 24px;
+      opacity: 0;
+      animation: mainFadeIn 1.6s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    @keyframes mainFadeIn {
+      from { opacity: 0; transform: translate(-50%, -46%); }
+      to   { opacity: 1; transform: translate(-50%, -50%); }
     }
 
     .center h1 {
@@ -167,9 +173,7 @@
         transform: translateY(-10vh) translateX(0) rotate(0deg);
         opacity: 0;
       }
-      8% {
-        opacity: 0.95;
-      }
+      8% { opacity: 0.95; }
       100% {
         transform: translateY(115vh) translateX(var(--driftX)) rotate(360deg);
         opacity: 0;
@@ -219,6 +223,75 @@
       }
     }
 
+    /* splash */
+    .splash {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background:
+        radial-gradient(circle at center, rgba(255,105,180,0.12), transparent 35%),
+        linear-gradient(180deg, #070b18 0%, #04070f 100%);
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+
+    .splash.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .splash-heart {
+      font-size: clamp(3.5rem, 10vw, 6rem);
+      margin-bottom: 18px;
+      animation: heartbeat 1.4s ease-in-out infinite;
+      text-shadow: 0 0 20px rgba(255,105,180,0.55);
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      25% { transform: scale(1.12); }
+      40% { transform: scale(0.98); }
+      60% { transform: scale(1.08); }
+    }
+
+    .splash-title {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      color: #ffd9e8;
+      margin-bottom: 12px;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .splash-subtitle {
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      color: rgba(255,240,246,0.88);
+      text-align: center;
+      margin-bottom: 24px;
+      padding: 0 24px;
+      line-height: 1.8;
+    }
+
+    .enter-btn {
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-size: 1rem;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .enter-btn:hover {
+      transform: scale(1.05);
+      background: rgba(255,255,255,0.14);
+    }
+
     @media (max-width: 640px) {
       .hint {
         font-size: 0.82rem;
@@ -234,6 +307,15 @@
   <div class="stars3"></div>
   <div class="glow"></div>
 
+  <div class="splash" id="splash">
+    <div class="splash-heart">❤️</div>
+    <div class="splash-title">For TaoJR</div>
+    <div class="splash-subtitle">
+      A tiny universe, made just for you.
+    </div>
+    <button class="enter-btn" id="enterBtn">enter my heart ✨</button>
+  </div>
+
   <div class="center">
     <h1>❤️ For TaoJR ❤️</h1>
     <div class="subtitle">
@@ -246,12 +328,23 @@
     <div class="signature">— Yulu</div>
   </div>
 
-  <div class="hint">tap / click anywhere ✨</div>
+  <div class="hint">click anywhere to see my heart for you ❤️</div>
 
   <script>
     const fallingSymbols = ["❤️", "💖", "💕", "💗", "💘", "💓"];
     const burstSymbols = ["❤️", "💖", "💕", "✨", "💗"];
     const body = document.body;
+    const splash = document.getElementById("splash");
+    const enterBtn = document.getElementById("enterBtn");
+
+    function openMainScene() {
+      splash.classList.add("hidden");
+    }
+
+    enterBtn.addEventListener("click", openMainScene);
+    splash.addEventListener("click", (e) => {
+      if (e.target === splash) openMainScene();
+    });
 
     function createFallingHeart() {
       const heart = document.createElement("div");
@@ -284,7 +377,6 @@
 
     function createBurst(x, y) {
       const total = 14;
-
       for (let i = 0; i < total; i++) {
         const item = document.createElement("div");
         item.className = "burst-heart";
@@ -303,7 +395,6 @@
         item.style.setProperty("--y", dy + "px");
 
         body.appendChild(item);
-
         setTimeout(() => item.remove(), 1300);
       }
     }
@@ -318,6 +409,7 @@
     }
 
     document.addEventListener("click", (e) => {
+      if (!splash.classList.contains("hidden")) return;
       createBurst(e.clientX, e.clientY);
       for (let i = 0; i < 5; i++) {
         createSpark(
@@ -328,6 +420,7 @@
     });
 
     document.addEventListener("touchstart", (e) => {
+      if (!splash.classList.contains("hidden")) return;
       const touch = e.touches[0];
       createBurst(touch.clientX, touch.clientY);
       for (let i = 0; i < 5; i++) {
@@ -340,6 +433,7 @@
 
     let lastSparkTime = 0;
     document.addEventListener("mousemove", (e) => {
+      if (!splash.classList.contains("hidden")) return;
       const now = Date.now();
       if (now - lastSparkTime > 60) {
         createSpark(e.clientX, e.clientY);
